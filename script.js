@@ -110,9 +110,12 @@ $("#ghost").keyup(function(e) {
             //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
             $("#ghost").val(""); // 입력란 초기화
 
-            // redraw = true;
-            // draw();
-            // generateMapping();
+            setTimeout(function() {
+                redraw = true;
+                draw();
+                generateMapping();
+            }, 300);
+
         }
     }
 });
