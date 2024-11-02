@@ -72,10 +72,10 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
-    textCheck();
+    draw();
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
-        textCheck();
+        draw();
         alert(ca);
     }
 
@@ -137,7 +137,13 @@ var input = src.getContext('2d');
 var output = dst.getContext('2d');
 
 
-var draw = function() {
+draw = function() {
+    console.log("Draw function called");
+    try {
+        // 기존 draw() 내용
+    } catch (error) {
+        console.error("Error in draw():", error);
+    }
     input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
     input.fillStyle = '#74F9FF';
