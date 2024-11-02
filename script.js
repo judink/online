@@ -72,10 +72,10 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
-    draw();
+    textCheck();
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
-        draw();
+        textCheck();
         alert(ca);
     }
 
@@ -103,7 +103,6 @@ $("#ghost").keyup(function(e) {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
 
             $("#ghost").val(""); // 입력란 초기화
-            draw();
 
         }
     }
