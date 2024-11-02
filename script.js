@@ -142,6 +142,8 @@ var output = dst.getContext('2d');
 
 draw = function() {
     console.log("Current strb value:", strb);
+    let strbp = strb;
+    strbp = strbadd('▊', strb);
 
     input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
