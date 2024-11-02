@@ -94,20 +94,20 @@ textCheck = function() {
 
 $(window).on('keydown keyup', function() {
     textCheck();
-    $("#ghost").keyup(function(e) {
-        if (e.keyCode == 13) {
-            const message = $("#ghost").val();
-            if (message !== "") {
-                socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-
-                $("#ghost").val(""); // 입력란 초기화
-
-            }
-        }
-    });
 });
 
+$("#ghost").keyup(function(e) {
+    if (e.keyCode == 13) {
+        const message = $("#ghost").val();
+        if (message !== "") {
+            socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
 
+            $("#ghost").val(""); // 입력란 초기화
+
+        }
+        textCheck();
+    }
+});
 
 // 캔버스 설정 및 그리기 함수
 var width = 512;
