@@ -93,13 +93,13 @@ textCheck = function() {
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
         strbp = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
-        redraw = true;
+        //redraw = true;
     }
 };
 
-// $(window).on('keydown keyup', function() {
-//     textCheck();
-// });
+$(window).on('keydown keyup', function() {
+    textCheck();
+});
 
 $("#ghost").keyup(function(e) {
     if (e.keyCode == 13) {
