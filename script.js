@@ -72,10 +72,12 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
-    draw();
+    setTimeout(() => draw(), 0); // 비동기적으로 호출
+
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
-        draw();
+        setTimeout(() => draw(), 0); // 비동기적으로 호출
+
         alert(ca);
     }
 
@@ -101,7 +103,6 @@ $("#ghost").keyup(function(e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-            draw();
             $("#ghost").val(""); // 입력란 초기화
 
 
@@ -140,7 +141,8 @@ var output = dst.getContext('2d');
 
 
 draw = function() {
-    console.log("Draw function called");
+    console.log("Current strb value:", strb);
+
     try {
         // 기존 draw() 내용
     } catch (error) {
