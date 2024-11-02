@@ -67,7 +67,6 @@ socket.on('init messages', (messages) => {
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
   });
   draw();
-  generateMapping();
 });
 
 // 서버에서 메시지 수신 시 즉시 그리기
@@ -76,23 +75,15 @@ socket.on('chat message', (msg) => {
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
     redraw = true;
     draw();
-    generateMapping();
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
         redraw = true;
         draw();
-        generateMapping();
         alert(ca);
     }
 
 });
-forceRedraw = function () {
-    redraw = true;
-    requestAnimFrame(() => {
-        draw();
-        generateMapping();
-    });
-}
+
 textCheck = function() {
     if (settings.stickfocus) {
         $("#ghost").focus();
@@ -117,7 +108,7 @@ $("#ghost").keyup(function(e) {
             $("#ghost").val(""); // 입력란 초기화
 
             // 즉시 강제 업데이트
-            forceRedraw();
+
 
         }
     }
@@ -152,37 +143,51 @@ var input = src.getContext('2d');
 var output = dst.getContext('2d');
 
 var draw = function() {
-    input.fillRect(0, 0, 512, 512);
+    input.clearRect(0, 0, width, height);
     input.font = '20px Monospace';
     input.fillStyle = '#74F9FF';
     input.shadowBlur = 30;
     input.shadowColor = "blue";
-    input.shadowOffsetX = 0;
-    input.shadowOffsetY = 0;
+
     for (let i = 0; i < (25 * 41); i += 41) {
         input.fillText(strbp.slice(i, i + 41), 10, ((i + 41) / 41) * 20);
     }
 
-    input.shadowBlur = 0;
-    input.shadowColor = "black";
-    input.fillStyle = 'black';
-
-    for (var i = 2; i < width; i += 1.5) {
-        input.beginPath();
-        input.moveTo(i * 2, 2);
-        input.lineTo(i * 2, 512);
-        input.lineWidth = 0.8;
-        input.strokeStyle = 'hsl(0,0%,0%)';
-        input.stroke();
-
-        input.beginPath();
-        input.moveTo(2, i * 2);
-        input.lineTo(512, i * 2);
-        input.lineWidth = 0.8;
-        input.strokeStyle = 'hsl(0,0%,0%)';
-        input.stroke();
-    }
+    // 그리기 완료 후 매핑
+    generateMapping();
 };
+// var draw = function() {
+//     input.fillRect(0, 0, 512, 512);
+//     input.font = '20px Monospace';
+//     input.fillStyle = '#74F9FF';
+//     input.shadowBlur = 30;
+//     input.shadowColor = "blue";
+//     input.shadowOffsetX = 0;
+//     input.shadowOffsetY = 0;
+//     for (let i = 0; i < (25 * 41); i += 41) {
+//         input.fillText(strbp.slice(i, i + 41), 10, ((i + 41) / 41) * 20);
+//     }
+//
+//     input.shadowBlur = 0;
+//     input.shadowColor = "black";
+//     input.fillStyle = 'black';
+//
+//     for (var i = 2; i < width; i += 1.5) {
+//         input.beginPath();
+//         input.moveTo(i * 2, 2);
+//         input.lineTo(i * 2, 512);
+//         input.lineWidth = 0.8;
+//         input.strokeStyle = 'hsl(0,0%,0%)';
+//         input.stroke();
+//
+//         input.beginPath();
+//         input.moveTo(2, i * 2);
+//         input.lineTo(512, i * 2);
+//         input.lineWidth = 0.8;
+//         input.strokeStyle = 'hsl(0,0%,0%)';
+//         input.stroke();
+//     }
+// };
 
 generateMapping = function() {
     output.fillRect(0, 0, 512, 512);
@@ -239,6 +244,5 @@ settings = {
     if (redraw) {
         redraw = false;
         draw();
-        generateMapping();
     }
 })();
