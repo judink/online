@@ -97,9 +97,9 @@ textCheck = function() {
     }
 };
 
-$(window).on('keydown keyup', function() {
-    textCheck();
-});
+// $(window).on('keydown keyup', function() {
+//     textCheck();
+// });
 
 $("#ghost").keyup(function(e) {
     if (e.keyCode == 13) {
