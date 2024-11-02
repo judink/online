@@ -89,7 +89,7 @@ textCheck = function() {
     }
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
-        strb = strbadd($("#ghost").val(), strb);
+        strb = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
         draw();
     }
 };
