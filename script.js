@@ -113,8 +113,9 @@ $("#ghost").keyup(function(e) {
             $("#ghost").val(""); // 입력란 초기화
 
             if(message === "ca"){
-                socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
                 alert(ca);
+                socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
+
             }
 
         }
