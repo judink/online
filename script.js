@@ -72,10 +72,14 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    strbp = strb;
+    strbp = strbadd('▊', strb);
     setTimeout(() => draw(), 0); // 비동기적으로 호출
 
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
+        strbp = strb;
+        strbp = strbadd('▊', strb);
         setTimeout(() => draw(), 0); // 비동기적으로 호출
 
         alert(ca);
@@ -89,7 +93,7 @@ textCheck = function() {
     }
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
-        strb = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
+        strbp = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
         draw();
     }
 };
@@ -141,10 +145,6 @@ var output = dst.getContext('2d');
 
 
 draw = function() {
-
-
-    strbp = strb;
-    strbp = strbadd('▊', strb);
 
     input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
