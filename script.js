@@ -114,7 +114,7 @@ $("#ghost").keyup(function(e) {
                 redraw = true;
                 draw();
                 generateMapping();
-            }, 300);
+            }, 1000);
 
         }
     }
