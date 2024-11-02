@@ -143,11 +143,6 @@ var output = dst.getContext('2d');
 draw = function() {
     console.log("Current strb value:", strb);
 
-    try {
-        // 기존 draw() 내용
-    } catch (error) {
-        console.error("Error in draw():", error);
-    }
     input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
     input.fillStyle = '#74F9FF';
