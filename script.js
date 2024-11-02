@@ -10,7 +10,6 @@ window.requestAnimFrame = (function(){
           };
 })();
 
-var redraw = true;
 
 $("#ghost").focus();
 (function($) {
@@ -73,11 +72,9 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
-    redraw = true;
     draw();
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
-        redraw = true;
         draw();
         alert(ca);
     }
@@ -91,7 +88,6 @@ textCheck = function() {
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
         strbp = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
-        redraw = true;
     }
 };
 
@@ -142,52 +138,41 @@ var dst = document.getElementById('projection');
 var input = src.getContext('2d');
 var output = dst.getContext('2d');
 
+
 var draw = function() {
-    input.clearRect(0, 0, width, height);
+    input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
     input.fillStyle = '#74F9FF';
     input.shadowBlur = 30;
     input.shadowColor = "blue";
-
+    input.shadowOffsetX = 0;
+    input.shadowOffsetY = 0;
     for (let i = 0; i < (25 * 41); i += 41) {
         input.fillText(strbp.slice(i, i + 41), 10, ((i + 41) / 41) * 20);
     }
 
+    input.shadowBlur = 0;
+    input.shadowColor = "black";
+    input.fillStyle = 'black';
+
+    for (var i = 2; i < width; i += 1.5) {
+        input.beginPath();
+        input.moveTo(i * 2, 2);
+        input.lineTo(i * 2, 512);
+        input.lineWidth = 0.8;
+        input.strokeStyle = 'hsl(0,0%,0%)';
+        input.stroke();
+
+        input.beginPath();
+        input.moveTo(2, i * 2);
+        input.lineTo(512, i * 2);
+        input.lineWidth = 0.8;
+        input.strokeStyle = 'hsl(0,0%,0%)';
+        input.stroke();
+    }
     // 그리기 완료 후 매핑
     generateMapping();
 };
-// var draw = function() {
-//     input.fillRect(0, 0, 512, 512);
-//     input.font = '20px Monospace';
-//     input.fillStyle = '#74F9FF';
-//     input.shadowBlur = 30;
-//     input.shadowColor = "blue";
-//     input.shadowOffsetX = 0;
-//     input.shadowOffsetY = 0;
-//     for (let i = 0; i < (25 * 41); i += 41) {
-//         input.fillText(strbp.slice(i, i + 41), 10, ((i + 41) / 41) * 20);
-//     }
-//
-//     input.shadowBlur = 0;
-//     input.shadowColor = "black";
-//     input.fillStyle = 'black';
-//
-//     for (var i = 2; i < width; i += 1.5) {
-//         input.beginPath();
-//         input.moveTo(i * 2, 2);
-//         input.lineTo(i * 2, 512);
-//         input.lineWidth = 0.8;
-//         input.strokeStyle = 'hsl(0,0%,0%)';
-//         input.stroke();
-//
-//         input.beginPath();
-//         input.moveTo(2, i * 2);
-//         input.lineTo(512, i * 2);
-//         input.lineWidth = 0.8;
-//         input.strokeStyle = 'hsl(0,0%,0%)';
-//         input.stroke();
-//     }
-// };
 
 generateMapping = function() {
     output.fillRect(0, 0, 512, 512);
@@ -239,10 +224,3 @@ settings = {
     }
 };
 
-(function animloop() {
-    requestAnimFrame(animloop);
-    if (redraw) {
-        redraw = false;
-        draw();
-    }
-})();
