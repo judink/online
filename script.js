@@ -88,6 +88,7 @@ textCheck = function() {
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
         strbp = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
+        redraw = true;
     }
 };
 
@@ -224,3 +225,10 @@ settings = {
     }
 };
 
+(function animloop() {
+    requestAnimFrame(animloop);
+    if (redraw) {
+        redraw = false;
+        draw();
+    }
+})();
