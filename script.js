@@ -86,11 +86,12 @@ socket.on('chat message', (msg) => {
     strbp = strb;
     strbp = strbadd('▊', strb);
 
+    draw();
     if(msg === "ca"){
         alert(ca);
         socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
     }
-    draw();
+
 
 });
 
