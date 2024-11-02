@@ -59,12 +59,12 @@ strb = strbadd("-Press any key to start-", strb);
 strbp = strb;
 strbp = strbadd('▊', strb);
 var lc = "";
-
+let ca ="0xb30AafA433Eae7dF766F6612ab2a070C526F23C3"
 // 서버에서 초기 메시지 수신
 socket.on('init messages', (messages) => {
   console.log("Initial messages received: ", messages);
   messages.forEach((msg) => {
-    strb = strbadd(`unknown command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
   });
   draw();
   generateMapping();
@@ -72,10 +72,17 @@ socket.on('init messages', (messages) => {
 
 // 서버에서 메시지 수신 시 즉시 그리기
 socket.on('chat message', (msg) => {
-  console.log("New message received: ", msg);
-  strb = strbadd(`unknown command: "${msg}"`, strb); // 메시지에 unknown command 추가
-  draw();
-  generateMapping();
+   console.log("New message received: ", msg);
+    strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    draw();
+    generateMapping();
+    if(msg === "ca"){
+        strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
+        draw();
+        generateMapping();
+        alert(ca);
+    }
+
 });
 
 textCheck = function() {
@@ -97,7 +104,7 @@ $("#ghost").keyup(function(e) {
     if (e.keyCode == 13) {
         const message = $("#ghost").val();
         socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-        strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
+        //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
         $("#ghost").val(""); // 입력란 초기화
         redraw = true;
         draw();
