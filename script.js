@@ -74,13 +74,15 @@ socket.on('chat message', (msg) => {
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
     strbp = strb;
     strbp = strbadd('▊', strb);
-    setTimeout(() => draw(), 0); // 비동기적으로 호출
+
+    draw();
 
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
         strbp = strb;
         strbp = strbadd('▊', strb);
-        setTimeout(() => draw(), 0); // 비동기적으로 호출
+
+        draw();
 
         alert(ca);
     }
