@@ -6,8 +6,16 @@
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" href="./img/icon.png"/>
   <link rel="apple-touch-icon" href="./img/icon.png"/>
+  <script src="moving_script.js"></script>
 </head>
 <body>
+<!-- 오른쪽에서 왼쪽으로 이동하는 이미지 -->
+<img src="./img/vitalik.png" class="moving-image" id="movingImage" alt="Moving Image">
+
+<!-- 아래에서 위로 튀어나오는 이미지 -->
+<img src="./img/brothers.png"  class="popup-image" id="popupImage" alt="Popup Image">
+
+
   <input type="text" id="ghost" />
   <canvas width="512" height="512" id="source"></canvas>
   <canvas width="512" height="512" id="projection"></canvas>
