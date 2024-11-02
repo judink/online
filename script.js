@@ -109,7 +109,7 @@ $("#ghost").keyup(function(e) {
         const message = $("#ghost").val();
         if (message !== "") {
             if (message === "ca") {
-                alert(ca);
+                //alert(ca);
                 // 서버로 한 번만 전송합니다.
                 socket.emit('chat message', "result: " + ca);
             } else {
