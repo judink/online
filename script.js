@@ -79,6 +79,7 @@ socket.on('chat message', (msg) => {
     generateMapping();
     if(msg === "ca"){
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
+        redraw = true;
         draw();
         generateMapping();
         alert(ca);
@@ -108,9 +109,10 @@ $("#ghost").keyup(function(e) {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
             //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
             $("#ghost").val(""); // 입력란 초기화
-            redraw = true;
-            draw();
-            generateMapping();
+
+            // redraw = true;
+            // draw();
+            // generateMapping();
         }
     }
 });
