@@ -108,12 +108,13 @@ $("#ghost").keyup(function(e) {
     if (e.keyCode == 13) {
         const message = $("#ghost").val();
         if (message !== "") {
-            socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-
-            if(message === "ca"){
+            if (message === "ca") {
                 alert(ca);
-                socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
-
+                // 서버로 한 번만 전송합니다.
+                socket.emit('chat message', "result: " + ca);
+            } else {
+                // 일반 메시지 전송
+                socket.emit('chat message', message);
             }
             $("#ghost").val(""); // 입력란 초기화
         }
