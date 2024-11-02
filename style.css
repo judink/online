@@ -42,7 +42,7 @@ input#ghost {
   top: 50%;
   transform: translateY(-50%);
   height: 500px;
-  animation: move-left 5s linear infinite;
+  animation: move-left 1s linear infinite;
   display: none;
 }
 
