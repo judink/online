@@ -101,11 +101,9 @@ $("#ghost").keyup(function(e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-            //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
+
             $("#ghost").val(""); // 입력란 초기화
-
-            // 즉시 강제 업데이트
-
+            draw();
 
         }
     }
@@ -225,10 +223,4 @@ settings = {
     }
 };
 
-// (function animloop() {
-//     requestAnimFrame(animloop);
-//     if (redraw) {
-//         redraw = false;
-//         draw();
-//     }
-// })();
+
