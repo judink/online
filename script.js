@@ -101,11 +101,12 @@ $("#ghost").keyup(function(e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-
+            draw();
             $("#ghost").val(""); // 입력란 초기화
 
+
         }
-        textCheck();
+
     }
 });
 
