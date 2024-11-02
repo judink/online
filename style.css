@@ -1,0 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans|Maven+Pro:500);
+
+A, A:link, A:visited, A:active {
+  text-decoration: none;
+  color: #b00b00;
+}
+
+body, html {
+  background: #000;
+  min-height: 100%;
+  font-size: 10px;
+  background-attachment: fixed;
+  color: white;
+}
+
+span#info {
+  position: fixed;
+}
+
+canvas#source {
+  display: none;
+}
+
+canvas#projection {
+  margin-top: 5px;
+  display: block;
+  width: 512px;
+  margin: 0 auto;
+}
+
+input#ghost {
+  position: fixed;
+  width: 100%;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  border: none;
+}
