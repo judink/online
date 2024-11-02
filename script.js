@@ -75,12 +75,11 @@ socket.on('init messages', (messages) => {
 
 // 서버에서 메시지 수신 시 즉시 그리기
 socket.on('chat message', (msg) => {
+    console.log("New message received: ", msg);
     if(msg.startsWith("result")){//기능일때
-        console.log("New result received: ", msg);
         strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
     }
     else{ // 기능이 아닐때
-        console.log("New message received: ", msg);
         strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
     }
     strbp = strb;
@@ -110,14 +109,13 @@ $("#ghost").keyup(function(e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-            $("#ghost").val(""); // 입력란 초기화
 
             if(message === "ca"){
                 alert(ca);
                 socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
 
             }
-
+            $("#ghost").val(""); // 입력란 초기화
         }
 
     }
