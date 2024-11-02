@@ -111,9 +111,7 @@ $("#ghost").keyup(function(e) {
             $("#ghost").val(""); // 입력란 초기화
 
             setTimeout(function() {
-                redraw = true;
-                draw();
-                generateMapping();
+                textCheck();
             }, 1000);
 
         }
