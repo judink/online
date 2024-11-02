@@ -89,7 +89,7 @@ textCheck = function() {
     }
     if ($("#ghost").getCursorPosition() != lc) {
         lc = $("#ghost").getCursorPosition();
-        strbp = strbadd($("#ghost").val().slice(0, lc) + '▊' + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
+        strb = strbadd($("#ghost").val().slice(0, lc) + $("#ghost").val().slice(lc, $("#ghost").val().length), strb);
         draw();
     }
 };
@@ -141,7 +141,8 @@ var output = dst.getContext('2d');
 
 
 draw = function() {
-    console.log("Current strb value:", strb);
+
+
     strbp = strb;
     strbp = strbadd('▊', strb);
 
@@ -176,6 +177,7 @@ draw = function() {
         input.stroke();
     }
     // 그리기 완료 후 매핑
+
     generateMapping();
 };
 
