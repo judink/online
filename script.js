@@ -63,14 +63,19 @@ let ca ="0xb30AafA433Eae7dF766F6612ab2a070C526F23C3"
 socket.on('init messages', (messages) => {
   console.log("Initial messages received: ", messages);
   messages.forEach((msg) => {
-    strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+      if(msg.startsWith("result")){//기능일때
+          strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
+      }
+      else{
+          strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+      }
   });
   draw();
 });
 
 // 서버에서 메시지 수신 시 즉시 그리기
 socket.on('chat message', (msg) => {
-    if(msg.startsWith('result')){//기능일때
+    if(msg.startsWith("result")){//기능일때
         console.log("New result received: ", msg);
         strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
     }
@@ -87,12 +92,10 @@ socket.on('chat message', (msg) => {
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
         strbp = strb;
         strbp = strbadd('▊', strb);
-
-        socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
-
         draw();
 
         alert(ca);
+        socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
     }
 
 });
