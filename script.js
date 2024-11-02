@@ -87,11 +87,6 @@ socket.on('chat message', (msg) => {
     strbp = strbadd('▊', strb);
 
     draw();
-    if(msg === "ca"){
-        alert(ca);
-        socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
-    }
-
 
 });
 
@@ -117,6 +112,10 @@ $("#ghost").keyup(function(e) {
             socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
             $("#ghost").val(""); // 입력란 초기화
 
+            if(message === "ca"){
+                socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
+                alert(ca);
+            }
 
         }
 
