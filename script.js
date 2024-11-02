@@ -86,7 +86,13 @@ socket.on('chat message', (msg) => {
     }
 
 });
-
+forceRedraw = function () {
+    redraw = true;
+    requestAnimFrame(() => {
+        draw();
+        generateMapping();
+    });
+}
 textCheck = function() {
     if (settings.stickfocus) {
         $("#ghost").focus();
@@ -110,9 +116,8 @@ $("#ghost").keyup(function(e) {
             //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
             $("#ghost").val(""); // 입력란 초기화
 
-            setTimeout(function() {
-                textCheck();
-            }, 1000);
+            // 즉시 강제 업데이트
+            forceRedraw();
 
         }
     }
