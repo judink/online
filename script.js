@@ -74,6 +74,7 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
    console.log("New message received: ", msg);
     strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    redraw = true;
     draw();
     generateMapping();
     if(msg === "ca"){
@@ -103,12 +104,14 @@ $(window).on('keydown keyup', function() {
 $("#ghost").keyup(function(e) {
     if (e.keyCode == 13) {
         const message = $("#ghost").val();
-        socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
-        //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
-        $("#ghost").val(""); // 입력란 초기화
-        redraw = true;
-        draw();
-        generateMapping();
+        if (message !== "") {
+            socket.emit('chat message', message); // 입력한 메시지를 서버로 전송
+            //strb = strbadd(`unknown command: "${message}"`, strb); // 로컬에도 메시지 추가
+            $("#ghost").val(""); // 입력란 초기화
+            redraw = true;
+            draw();
+            generateMapping();
+        }
     }
 });
 
