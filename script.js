@@ -86,17 +86,11 @@ socket.on('chat message', (msg) => {
     strbp = strb;
     strbp = strbadd('▊', strb);
 
-    draw();
-
     if(msg === "ca"){
-        strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
-        strbp = strb;
-        strbp = strbadd('▊', strb);
-        draw();
-
         alert(ca);
         socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
     }
+    draw();
 
 });
 
