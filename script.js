@@ -54,7 +54,7 @@ strb = strbadd("Connection + community = human.", strb);
 strb = strbadd(" ", strb);
 strb = strbadd("Ca: 0xb30AafA433Eae7dF766F6612ab2a070C526F23C3", strb);
 strb = strbadd(" ", strb);
-strb = strbadd("-Press any key to start-", strb);
+strb = strbadd("--Press any key to start--", strb);
 strbp = strb;
 strbp = strbadd('▊', strb);
 var lc = "";
@@ -70,8 +70,14 @@ socket.on('init messages', (messages) => {
 
 // 서버에서 메시지 수신 시 즉시 그리기
 socket.on('chat message', (msg) => {
-   console.log("New message received: ", msg);
-    strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    if(msg.startsWith('result')){//기능일때
+        console.log("New result received: ", msg);
+        strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
+    }
+    else{ // 기능이 아닐때
+        console.log("New message received: ", msg);
+        strb = strbadd(`online command: "${msg}"`, strb); // 메시지에 unknown command 추가
+    }
     strbp = strb;
     strbp = strbadd('▊', strb);
 
@@ -81,6 +87,8 @@ socket.on('chat message', (msg) => {
         strb = strbadd("result: "+ca, strb); // 메시지에 unknown command 추가
         strbp = strb;
         strbp = strbadd('▊', strb);
+
+        socket.emit('chat message', "result: "+ca); // 입력한 메시지를 서버로 전송
 
         draw();
 
