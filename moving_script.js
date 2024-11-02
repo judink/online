@@ -10,7 +10,7 @@ function triggerMovingImage() {
 
     setTimeout(() => {
         movingImage.style.display = "none";
-    }, 5000);
+    }, 1000);
 }
 
 // 아래에서 위로 튀어나오는 이미지 함수
