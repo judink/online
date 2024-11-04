@@ -52,7 +52,6 @@ strb = strbadd("and the network is communication", strb);
 strb = strbadd(" ", strb);
 strb = strbadd("Connection + community = human.", strb);
 strb = strbadd(" ", strb);
-strb = strbadd("DexPair: https://www.dextools.io/app/en/ether/pair-explorer/0xe8901f907e0b804c033148a5ba7bf90a4f8e4e5c", strb);
 strb = strbadd("Ca: 0xb30AafA433Eae7dF766F6612ab2a070C526F23C3", strb);
 strb = strbadd("Tg: https://t.me/GenesisofOnlineTerminal", strb);
 strb = strbadd("X: https://x.com/OnlineTerminal_", strb);
