@@ -1,0 +1,158 @@
+.popup_window{
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.popup{
+    width: 60rem;
+    font-family: monospace;
+    background: black;
+    color: #ffcc00;
+    display: flex;
+}
+
+#container {
+    display: flex;
+    background-color: black;
+}
+
+#canvasContainer {
+    width: 20rem;
+    flex: 1;
+    text-align: center;
+    margin: 2rem;
+}
+
+#optionsContainer {
+    margin: 2rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+
+}
+.options_title{
+    font-size: 1rem;
+}
+#avatarCanvas{
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+
+}
+#canvasContainer>h3 {
+    font-size: 2rem;
+}
+
+/* Style for category and option images */
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem
+}
+.options{
+    width: 20rem;
+    overflow-x: auto;
+    display: flex;
+}
+
+.category img {
+    cursor: pointer;
+    width: 4rem;
+    height: 4rem;
+    border: 2px solid transparent;
+}
+
+.category img.selected {
+    border-color: blue;
+}
+#buttons{
+    margin: 2rem;
+
+}
+#buttons> button{
+    font-size: 1.2rem;
+    color: black;
+    border: 0.2rem outset hsl(213deg 8% 78%);
+    background-color: hsl(213deg 8% 78%);
+}
+
+
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.25rem;
+
+    .title-bar-icon {
+        font-size: 1rem;
+        color: hsla(0deg 100% 100%);
+    }
+
+    h1 {
+        flex-grow: 1;
+        margin-left: 0.5rem;
+        font-size: 1rem;
+        color: hsl(0deg 100% 100%);
+    }
+
+    button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+}
+
+.menu-bar {
+    ul {
+        color: black;
+        display: flex;
+        list-style: none;
+        padding: 0 0.5rem;
+    }
+    li {
+        margin-right: 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+
+.win95 {
+    position: relative;
+    width: 100%;
+    font-size: 0.5vw;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border: 0.2rem outset hsl(213deg 8% 78%);
+    background-color: hsl(213deg 8% 78%);
+
+    .title-bar {
+        background-color: hsl(241deg 100% 33%);
+
+        button {
+            border: 0.2rem outset hsl(213deg 8% 78%);
+            background-color: hsl(213deg 8% 78%);
+        }
+    }
+
+    textarea {
+        border: 0.2rem inset hsl(213deg 8% 78%);
+    }
+
+
+    .menu-bar {
+        background-color: hsl(50deg 33% 86%);
+    }
+
+}
+

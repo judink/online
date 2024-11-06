@@ -7,25 +7,43 @@ A, A:link, A:visited, A:active {
 
 body, html {
   background: #000;
-  min-height: 100%;
-  font-size: 10px;
-  background-attachment: fixed;
-  color: white;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
+.popup_btn{
+  font-family: monospace;
+  font-size: 20px;
+  position: absolute;
+  padding-right: 10px;
+  padding-left: 10px;
+  right: 0;
+  border:solid 3px #303030;
+  color: #b8b8b8;
+  background: #3e3e3e;
 
+}
+.chat{
+  height: 100vh;
+  font-size: 10px;
+  color: white;
+  background-attachment: fixed;
+  position: absolute;
+}
 span#info {
   position: fixed;
 }
 
 canvas#source {
   display: none;
+
 }
 
 canvas#projection {
-  margin-top: 5px;
   display: block;
   width: 512px;
   margin: 0 auto;
+
 }
 
 input#ghost {
@@ -36,43 +54,4 @@ input#ghost {
   border: 0;
   outline: none;
   border: none;
-}
-.moving-image {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 500px;
-  animation: move-left 1s linear infinite;
-  display: none;
-}
-
-/* 아래에서 위로 튀어나오는 이미지 스타일 */
-.popup-image {
-  position: absolute;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 500px;
-  animation: pop-up 2s ease-in-out;
-  display: none;
-}
-
-/* 오른쪽에서 왼쪽으로 이동하는 애니메이션 */
-@keyframes move-left {
-  from {
-    left: 100%;
-  }
-  to {
-    left: -150px;
-  }
-}
-
-/* 아래에서 위로 튀어나왔다가 들어가는 애니메이션 */
-@keyframes pop-up {
-  0%, 100% {
-    bottom: -100px;
-  }
-  50% {
-    bottom: 50px;
-  }
 }
