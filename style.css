@@ -21,6 +21,8 @@ body, html {
   border:solid 3px #303030;
   color: #b8b8b8;
   background: #3e3e3e;
+  cursor: pointer;
+  z-index: 99;
 
 }
 .chat{
