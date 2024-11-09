@@ -123,7 +123,7 @@ $("#ghost").keyup(async function (e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message);
-            if (msg.startsWith("/")) {
+            if (message.startsWith("/")) {
                 if (message.startsWith("/filter")) {
                     const result = message.split(' ');
                     if (result.length >= 3) {
@@ -146,7 +146,7 @@ $("#ghost").keyup(async function (e) {
                         }
                     }
                 } else {
-                    const filterName = msg.slice(1); // Extract filter name (e.g., "/exampleFilter" -> "exampleFilter")
+                    const filterName = message.slice(1); // Extract filter name (e.g., "/exampleFilter" -> "exampleFilter")
                     // Try to find the corresponding filter from Firestore
                     const filters = await getFilters(); // Get all filters
 
