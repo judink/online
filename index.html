@@ -93,7 +93,17 @@
 
 
   <!-- Main Script -->
-  <script type="module" src="./firebase_config.js?2024110207"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js'
+
+    // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js'
+
+    // Add Firebase products that you want to use
+    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js'
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js'
+  </script>
+  <script  src="./firebase_config.js?2024110207"></script>
   <script src="./script.js?2024110207"></script>
   <script src="./popup.js?2024110207"></script>
 
