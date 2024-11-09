@@ -233,11 +233,10 @@ $("#ghost").keyup(async function (e) {
                     if (filter) {
                         // If the filter exists, send the response back
                         socket.emit('chat message', "result: " + filter.response+"\n" +
-                            "Anyone can register this filter, so do not trust the contents.\n" +
-                            "The official ca,x,tg link will appear if you just enter it without a slash.");
+                            "\nThe official ca,x,tg link will appear if you just enter it without a slash.");
                     }
                 }
-
+s
             } else if (message === "ca") {
                 socket.emit('chat message', "result: " + ca);
             } else if (message === "x") {
@@ -367,11 +366,11 @@ async function addOrUpdateFilter(trigger, response) {
         if (existingFilter) {
             // 기존 필터가 있을 경우, 업데이트
             await updateDoc(doc(db, "filters", existingFilter.id), { response });
-            return "Filter updated: " + trigger+"=>"+response;
+            return "Filter updated: " + trigger.toString()+"=>"+response.toString();
         } else {
             // 기존 필터가 없을 경우, 새 필터 추가
             const docRef = await addDoc(collection(db, "filters"), { trigger, response });
-            return "Filter added: " + trigger+"=>"+response;
+            return "Filter added: " + trigger.toString()+"=>"+response.toString();
         }
     } catch (e) {
         console.error("Error adding or updating filter: ", e);
