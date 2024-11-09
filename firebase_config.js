@@ -46,6 +46,6 @@ window.loadFirebaseModule = loadFirebaseModule;
             measurementId: "G-38B0YKEQJV"
         });
     });
-window.FIREBASE_MODULES['app'].auth();
+
 loadFirebaseModule('storage', true); // import & ignore the error
 // Firestore 모듈 로드
