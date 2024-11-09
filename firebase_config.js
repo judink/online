@@ -49,3 +49,14 @@ loadFirebaseModule('app')
 
 loadFirebaseModule('storage');
 loadFirebaseModule('storage', true); // import & ignore the error
+// Firestore 모듈 로드
+loadFirebaseModule('firestore')
+    .then((firestoreModule) => {
+        const { getFirestore, collection, getDocs, addDoc, Timestamp} = firestoreModule;
+        // Firestore 초기화
+        const db = getFirestore();
+
+    })
+    .catch((err) => {
+        console.error('Failed to load Firestore module:', err);
+    });
