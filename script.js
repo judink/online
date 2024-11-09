@@ -356,60 +356,60 @@ let generateMapping = function() {
 
     output.putImageData(bitmap, 0, 0);
 };
-// async function addOrUpdateFilter(trigger, response) {
-//     try {
-//         // getFilters 함수를 사용해 모든 필터를 가져옵니다.
-//         const filters = await getFilters();
-//
-//         // trigger가 일치하는 필터가 있는지 확인합니다.
-//         const existingFilter = filters.find(filter => filter.trigger === trigger);
-//
-//         if (existingFilter) {
-//             // 기존 필터가 있을 경우, 업데이트
-//             await updateDoc(doc(db, "filters", existingFilter.id), { response });
-//             return "Filter updated: " + trigger+"=>"+response;
-//         } else {
-//             // 기존 필터가 없을 경우, 새 필터 추가
-//             const docRef = await addDoc(collection(db, "filters"), { trigger, response });
-//             return "Filter added: " + trigger+"=>"+response;
-//         }
-//     } catch (e) {
-//         console.error("Error adding or updating filter: ", e);
-//         return "Error handling filter: " + trigger;
-//     }
-// }
-//
-// async function getFilterStr() {
-//     let result = "";
-//     const querySnapshot = await getDocs(collection(db, "filters"));
-//
-//     querySnapshot.forEach((doc) => {
-//         result += doc.id+" => "+doc.data()+"\n";
-//     });
-//     return result;
-// }
-// async function getFilters() {
-//     let filters = [];
-//     const querySnapshot = await getDocs(collection(db, "filters"));
-//
-//     querySnapshot.forEach((doc) => {
-//         filters.push({ id: doc.id, ...doc.data() });
-//     });
-//     return filters;
-// }
-// async function deleteFilter(filterId) {
-//     const filterRef = doc(db, "filters", filterId);
-//     // 문서가 존재하는지 확인
-//     const filterSnap = await getDoc(filterRef);
-//     if (filterSnap.exists()) {
-//         // 문서가 존재하면 삭제
-//         await deleteDoc(filterRef);
-//         return  filterId;
-//     } else {
-//         // 문서가 없으면 경고 메시지 출력
-//        return null;
-//     }
-// }
+async function addOrUpdateFilter(trigger, response) {
+    try {
+        // getFilters 함수를 사용해 모든 필터를 가져옵니다.
+        const filters = await getFilters();
+
+        // trigger가 일치하는 필터가 있는지 확인합니다.
+        const existingFilter = filters.find(filter => filter.trigger === trigger);
+
+        if (existingFilter) {
+            // 기존 필터가 있을 경우, 업데이트
+            await updateDoc(doc(db, "filters", existingFilter.id), { response });
+            return "Filter updated: " + trigger+"=>"+response;
+        } else {
+            // 기존 필터가 없을 경우, 새 필터 추가
+            const docRef = await addDoc(collection(db, "filters"), { trigger, response });
+            return "Filter added: " + trigger+"=>"+response;
+        }
+    } catch (e) {
+        console.error("Error adding or updating filter: ", e);
+        return "Error handling filter: " + trigger;
+    }
+}
+
+async function getFilterStr() {
+    let result = "";
+    const querySnapshot = await getDocs(collection(db, "filters"));
+
+    querySnapshot.forEach((doc) => {
+        result += doc.id+" => "+doc.data()+"\n";
+    });
+    return result;
+}
+async function getFilters() {
+    let filters = [];
+    const querySnapshot = await getDocs(collection(db, "filters"));
+
+    querySnapshot.forEach((doc) => {
+        filters.push({ id: doc.id, ...doc.data() });
+    });
+    return filters;
+}
+async function deleteFilter(filterId) {
+    const filterRef = doc(db, "filters", filterId);
+    // 문서가 존재하는지 확인
+    const filterSnap = await getDoc(filterRef);
+    if (filterSnap.exists()) {
+        // 문서가 존재하면 삭제
+        await deleteDoc(filterRef);
+        return  filterId;
+    } else {
+        // 문서가 없으면 경고 메시지 출력
+       return null;
+    }
+}
 let settings = {
     maxRadius: 0.561,
     k: 0.115,
