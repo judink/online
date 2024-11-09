@@ -201,6 +201,7 @@ $("#ghost").keyup(async function (e) {
         const message = $("#ghost").val();
         if (message !== "") {
             socket.emit('chat message', message);
+
             if (message.startsWith("/")) {
                 if (message.startsWith("/filter")) {
                     const result = message.split(' ');
@@ -236,7 +237,7 @@ $("#ghost").keyup(async function (e) {
                             "[ anyone can add the filter, so dont trust this info ]");
                     }
                 }
-s
+
             } else if (message === "ca") {
                 socket.emit('chat message', "result: " + ca);
             } else if (message === "x") {
