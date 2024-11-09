@@ -203,17 +203,17 @@ $("#ghost").keyup(async function (e) {
             socket.emit('chat message', message);
 
             if (message.startsWith("/")) {
-                if (message.startsWith("/filter")) {
+                if (message.startsWith("/filters")) {
+                    const func_result = await getFilterStr();
+                    socket.emit('chat message', "result:\n" + func_result);
+
+                }else if (message.startsWith("/filter")) {
                     const result = message.split(' ');
                     if (result.length >= 3) {
 
                         const func_result = addOrUpdateFilter(result[1], result[2]);
                         socket.emit('chat message', "result: " + func_result);
                     }
-                } else if (message.startsWith("/filters")) {
-                    const func_result = await getFilterStr();
-                    socket.emit('chat message', "result:\n" + func_result);
-
                 } else if (message.startsWith("/Delete_filter")) {
                     const result = message.split(' ');
                     if (result.length >= 3) {
