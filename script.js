@@ -1,6 +1,4 @@
-// Socket.IO 연결 설정
-import { collection, addDoc ,deleteDoc} from "firebase/firestore";
-import { db } from "./firebase_config";
+
 const socket = io('https://moniomok.xyz:3001'); // 수정예정
 
 window.requestAnimFrame = (function(){
