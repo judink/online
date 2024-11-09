@@ -1,5 +1,7 @@
 // Socket.IO 연결 설정
-const socket = io('https://moniomok.xyz:3001');
+import { collection, addDoc ,deleteDoc} from "firebase/firestore";
+import { db } from "./firebase_config";
+const socket = io('https://moniomok.xyz:3001'); // 수정예정
 
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
@@ -9,6 +11,9 @@ window.requestAnimFrame = (function(){
             window.setTimeout(callback, 1000 / 60);
           };
 })();
+
+
+
 
 
 $("#ghost").focus();
@@ -40,6 +45,7 @@ var strbadd = function(str, strb) {
 };
 
 var strb = "";
+var strbp = ""
 strb = strbadd(" ", strb);
 strb = strbadd("Genesis of Online Terminal", strb);
 strb = strbadd(" ", strb);
@@ -61,10 +67,14 @@ strb = strbadd("--Press any key to start--", strb);
 strbp = strb;
 strbp = strbadd('▊', strb);
 var lc = "";
-let ca ="0xb30AafA433Eae7dF766F6612ab2a070C526F23C3"
+const ca ="0xb30AafA433Eae7dF766F6612ab2a070C526F23C3";
+const tg = "https://t.me/GenesisofOnlineTerminal";
+const x = "https://x.com/OnlineTerminal_";
+
 // 서버에서 초기 메시지 수신
 socket.on('init messages', (messages) => {
   console.log("Initial messages received: ", messages);
+
   messages.forEach((msg) => {
       if(msg.startsWith("result")){//기능일때
           strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
@@ -80,6 +90,7 @@ socket.on('init messages', (messages) => {
 socket.on('chat message', (msg) => {
     console.log("New message received: ", msg);
     if(msg.startsWith("result")){//기능일때
+
         strb = strbadd("ㄴ"+msg, strb); // 메시지에 unknown command 추가
     }
     else{ // 기능이 아닐때
@@ -92,7 +103,7 @@ socket.on('chat message', (msg) => {
 
 });
 
-textCheck = function() {
+let textCheck = function() {
     if (settings.stickfocus) {
         $("#ghost").focus();
     }
@@ -107,18 +118,59 @@ $(window).on('keydown keyup', function() {
     textCheck();
 });
 
-$("#ghost").keyup(function(e) {
+$("#ghost").keyup(async function (e) {
     if (e.keyCode == 13) {
         const message = $("#ghost").val();
         if (message !== "") {
-            if (message === "ca") {
-                //alert(ca);
-                // 서버로 한 번만 전송합니다.
+            socket.emit('chat message', message);
+            if (msg.startsWith("/")) {
+                if (message.startsWith("/filter")) {
+                    const result = message.split(' ');
+                    if (result.length >= 3) {
+
+                        const func_result = addOrUpdateFilter(result[1], result[2]);
+                        socket.emit('chat message', "result: " + func_result);
+                    }
+                } else if (message.startsWith("/filters")) {
+                    const func_result = await getFilterStr();
+                    socket.emit('chat message', "result:\n" + func_result);
+
+                } else if (message.startsWith("/Delete_filter")) {
+                    const result = message.split(' ');
+                    if (result.length >= 3) {
+                        const func_result = deleteFilter(result[1])
+                        if (func_result != null) {
+                            socket.emit('chat message', "result: filter deleted: " + result[1]);
+                        } else {
+                            socket.emit('chat message', "result: There is no filter like: " + result[1]);
+                        }
+                    }
+                } else {
+                    const filterName = msg.slice(1); // Extract filter name (e.g., "/exampleFilter" -> "exampleFilter")
+                    // Try to find the corresponding filter from Firestore
+                    const filters = await getFilters(); // Get all filters
+
+                    // Check if there is a filter with the matching trigger
+                    const filter = filters.find(filter => filter.trigger === filterName);
+                    if (filter) {
+                        // If the filter exists, send the response back
+                        socket.emit('chat message', "result: " + filter.response+"\n" +
+                            "Anyone can register this filter, so do not trust the contents.\n" +
+                            "The official ca,x,tg link will appear if you just enter it without a slash.");
+                    }
+                }
+
+            } else if (message === "ca") {
                 socket.emit('chat message', "result: " + ca);
-            } else {
-                // 일반 메시지 전송
-                socket.emit('chat message', message);
+            } else if (message === "x") {
+                socket.emit('chat message', "result: " + x);
+            } else if (message === "tg") {
+                socket.emit('chat message', "result: " + tg);
+            }else if (message.toLowerCase() === "make pfp") {
+                let popup = document.querySelector(".popup_window");
+                popup.style.display = "flex";
             }
+
             $("#ghost").val(""); // 입력란 초기화
         }
 
@@ -154,7 +206,7 @@ var input = src.getContext('2d');
 var output = dst.getContext('2d');
 
 
-draw = function() {
+let draw = function() {
 
     input.fillRect(0, 0, 512, 512);
     input.font = '20px Monospace';
@@ -191,7 +243,7 @@ draw = function() {
     generateMapping();
 };
 
-generateMapping = function() {
+let generateMapping = function() {
     output.fillRect(0, 0, 512, 512);
     var bitmap = input.getImageData(0, 0, 512, 512);
     var texture = input.getImageData(0, 0, 512, 512);
@@ -226,8 +278,61 @@ generateMapping = function() {
 
     output.putImageData(bitmap, 0, 0);
 };
+async function addOrUpdateFilter(trigger, response) {
+    try {
+        // getFilters 함수를 사용해 모든 필터를 가져옵니다.
+        const filters = await getFilters();
 
-settings = {
+        // trigger가 일치하는 필터가 있는지 확인합니다.
+        const existingFilter = filters.find(filter => filter.trigger === trigger);
+
+        if (existingFilter) {
+            // 기존 필터가 있을 경우, 업데이트
+            await updateDoc(doc(db, "filters", existingFilter.id), { response });
+            return "Filter updated: " + existingFilter.id;
+        } else {
+            // 기존 필터가 없을 경우, 새 필터 추가
+            const docRef = await addDoc(collection(db, "filters"), { trigger, response });
+            return "Filter added: " + docRef.id;
+        }
+    } catch (e) {
+        console.error("Error adding or updating filter: ", e);
+        return "Error handling filter: " + trigger;
+    }
+}
+
+async function getFilterStr() {
+    let result = "";
+    const querySnapshot = await getDocs(collection(db, "filters"));
+
+    querySnapshot.forEach((doc) => {
+        result += doc.id+" => "+doc.data()+"\n";
+    });
+    return result;
+}
+async function getFilters() {
+    let filters = [];
+    const querySnapshot = await getDocs(collection(db, "filters"));
+
+    querySnapshot.forEach((doc) => {
+        filters.push({ id: doc.id, ...doc.data() });
+    });
+    return filters;
+}
+async function deleteFilter(filterId) {
+    const filterRef = doc(db, "filters", filterId);
+    // 문서가 존재하는지 확인
+    const filterSnap = await getDoc(filterRef);
+    if (filterSnap.exists()) {
+        // 문서가 존재하면 삭제
+        await deleteDoc(filterRef);
+        return  filterId;
+    } else {
+        // 문서가 없으면 경고 메시지 출력
+       return null;
+    }
+}
+let settings = {
     maxRadius: 0.561,
     k: 0.115,
     atanscale: 1,
