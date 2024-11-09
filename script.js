@@ -204,8 +204,9 @@ $("#ghost").keyup(async function (e) {
 
             if (message.startsWith("/")) {
                 if (message.startsWith("/filters")) {
-                    const func_result = await getFilterStr();
-                    socket.emit('chat message', "result:\n" + func_result);
+                   getFilterStr()
+                       .then((value) => socket.emit('chat message', "result:\n" + value))
+                       .catch((error) => console.log("error:", error))
 
                 }else if (message.startsWith("/filter")) {
                     const result = message.split(' ');
