@@ -287,11 +287,11 @@ async function addOrUpdateFilter(trigger, response) {
         if (existingFilter) {
             // 기존 필터가 있을 경우, 업데이트
             await updateDoc(doc(db, "filters", existingFilter.id), { response });
-            return "Filter updated: " + existingFilter.id;
+            return "Filter updated: " + trigger+"=>"+response;
         } else {
             // 기존 필터가 없을 경우, 새 필터 추가
             const docRef = await addDoc(collection(db, "filters"), { trigger, response });
-            return "Filter added: " + docRef.id;
+            return "Filter added: " + trigger+"=>"+response;
         }
     } catch (e) {
         console.error("Error adding or updating filter: ", e);
