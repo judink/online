@@ -233,7 +233,7 @@ $("#ghost").keyup(async function (e) {
                     if (filter) {
                         // If the filter exists, send the response back
                         socket.emit('chat message', "result: " + filter.response+"\n" +
-                            "\nThe official ca,x,tg link will appear if you just enter it without a slash.");
+                            "[ anyone can add the filter, so dont trust this info ]");
                     }
                 }
 s
