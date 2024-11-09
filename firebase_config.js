@@ -32,7 +32,6 @@ async function loadFirebaseModule(serviceName, sinkErrors
         }
     }
 }
-
 window.loadFirebaseModule = loadFirebaseModule;
 
 loadFirebaseModule('app')
@@ -43,31 +42,30 @@ loadFirebaseModule('app')
             projectId: "onlineeth-6dcea",
             storageBucket: "onlineeth-6dcea.firebasestorage.app",
             messagingSenderId: "52648731675",
-            appId: "1:52648731675:web:f35f51695537cc7f1604be",
-            measurementId: "G-38B0YKEQJV"
+            appId: "52648731675",
+            measurementId: "52648731675"
         });
     });
 
-loadFirebaseModule('storage', true) // import & ignore the error
-    .then((firestoreModule) => {
-        const {getFirestore, collection, getDocs, Timestamp} = firestoreModule;
-        const db = getFirestore();  // Firestore 인스턴스 생성
 
-        // Firestore에서 데이터 읽기
+loadFirebaseModule('firestore')
+    .then((firestoreModule) => {
+        const { getFirestore, collection, getDocs, addDoc, Timestamp } = firestoreModule;
+
+        // Firestore 초기화
+        const db = getFirestore();
+
+        // 사용할 Firestore 메서드 예시
         async function fetchData() {
-            const myCollection = collection(db, 'filters'); // filters 컬렉션
-            try {
-                const querySnapshot = await getDocs(myCollection);  // 컬렉션에서 문서 가져오기
-                querySnapshot.forEach((doc) => {
-                    console.log(doc.id, ' => ', doc.data());  // 각 문서의 ID와 데이터를 콘솔에 출력
-                });
-            } catch (error) {
-                console.error("Error getting documents: ", error);  // 오류 처리
-            }
+            const myCollection = collection(db, 'filters');
+            const querySnapshot = await getDocs(myCollection);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, ' => ', doc.data());
+            });
         }
 
-        fetchData();  // 데이터 가져오기 호출
+        fetchData();
     })
     .catch((err) => {
-        console.error('Failed to load Firebase module:', err);  // 모듈 로드 실패 시 오류 처리
+        console.error('Failed to load Firestore module:', err);
     });
