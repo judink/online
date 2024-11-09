@@ -1,5 +1,6 @@
 
-const {  doc, getDoc } = FM.storage
+import { collection, getDocs, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+
 const socket = io('https://moniomok.xyz:3001'); // 수정예정
 
 window.requestAnimFrame = (function(){
