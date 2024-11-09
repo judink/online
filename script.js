@@ -210,19 +210,16 @@ $("#ghost").keyup(async function (e) {
                 }else if (message.startsWith("/filter")) {
                     const result = message.split(' ');
                     if (result.length >= 3) {
-
-                        const func_result = addOrUpdateFilter(result[1], result[2]);
-                        socket.emit('chat message', "result: " + func_result);
+                        addOrUpdateFilter(result[1], result[2])
+                            .then((value) => socket.emit('chat message', "result: " + value))
+                            .catch((error) => console.log("error:", error))
                     }
                 } else if (message.startsWith("/Delete_filter")) {
                     const result = message.split(' ');
                     if (result.length >= 3) {
-                        const func_result = deleteFilter(result[1])
-                        if (func_result != null) {
-                            socket.emit('chat message', "result: filter deleted: " + result[1]);
-                        } else {
-                            socket.emit('chat message', "result: There is no filter like: " + result[1]);
-                        }
+                        deleteFilter(result[1])
+                            .then((value) => socket.emit('chat message', "result: filter deleted: " +value))
+                            .catch((error) => console.log("error:", error))
                     }
                 } else {
                     const filterName = message.slice(1); // Extract filter name (e.g., "/exampleFilter" -> "exampleFilter")
