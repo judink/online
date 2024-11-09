@@ -43,7 +43,8 @@ loadFirebaseModule('app')
             storageBucket: "onlineeth-6dcea.firebasestorage.app",
             messagingSenderId: "52648731675",
             appId: "52648731675",
-            measurementId: "52648731675"
+            measurementId: "52648731675",
+            firebaseAppId: "G-38B0YKEQJV"
         });
     });
 
