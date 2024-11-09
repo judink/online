@@ -1,5 +1,6 @@
 window.FIREBASE_MODULES = window.FM = {};
-
+let db = null
+let myCollection = null;
 async function loadFirebaseModule(serviceName, sinkErrors
 ) {
     const name = serviceName.toLowerCase();
@@ -47,17 +48,16 @@ loadFirebaseModule('app')
         });
     });
 
-
 loadFirebaseModule('firestore')
     .then((firestoreModule) => {
         const { getFirestore, collection, getDocs, addDoc, Timestamp } = firestoreModule;
 
         // Firestore 초기화
-        const db = getFirestore();
+        db = getFirestore();
 
         // 사용할 Firestore 메서드 예시
         async function fetchData() {
-            const myCollection = collection(db, 'filters');
+            myCollection = collection(db, 'filters');
             const querySnapshot = await getDocs(myCollection);
             querySnapshot.forEach((doc) => {
                 console.log(doc.id, ' => ', doc.data());
