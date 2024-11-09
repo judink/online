@@ -1,5 +1,5 @@
 
-const {  doc, getDoc } = FM.app
+const {  doc, getDoc } = FM.storage
 const socket = io('https://moniomok.xyz:3001'); // 수정예정
 
 window.requestAnimFrame = (function(){
