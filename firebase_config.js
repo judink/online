@@ -32,9 +32,10 @@ async function loadFirebaseModule(serviceName, sinkErrors
         }
     }
 }
+
 window.loadFirebaseModule = loadFirebaseModule;
 
- loadFirebaseModule('app')
+loadFirebaseModule('app')
     .then(({initializeApp}) => {
         initializeApp({
             apiKey: "AIzaSyAgG4H6wjiZkck0Uz3wyDyu8SwFAYyCneQ",
@@ -47,5 +48,26 @@ window.loadFirebaseModule = loadFirebaseModule;
         });
     });
 
-loadFirebaseModule('storage', true); // import & ignore the error
-// Firestore 모듈 로드
+loadFirebaseModule('storage', true) // import & ignore the error
+    .then((firestoreModule) => {
+        const {getFirestore, collection, getDocs, Timestamp} = firestoreModule;
+        const db = getFirestore();  // Firestore 인스턴스 생성
+
+        // Firestore에서 데이터 읽기
+        async function fetchData() {
+            const myCollection = collection(db, 'filters'); // filters 컬렉션
+            try {
+                const querySnapshot = await getDocs(myCollection);  // 컬렉션에서 문서 가져오기
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.id, ' => ', doc.data());  // 각 문서의 ID와 데이터를 콘솔에 출력
+                });
+            } catch (error) {
+                console.error("Error getting documents: ", error);  // 오류 처리
+            }
+        }
+
+        fetchData();  // 데이터 가져오기 호출
+    })
+    .catch((err) => {
+        console.error('Failed to load Firebase module:', err);  // 모듈 로드 실패 시 오류 처리
+    });
