@@ -34,7 +34,7 @@ async function loadFirebaseModule(serviceName, sinkErrors
 }
 window.loadFirebaseModule = loadFirebaseModule;
 
-const app = loadFirebaseModule('app')
+ loadFirebaseModule('app')
     .then(({initializeApp}) => {
         initializeApp({
             apiKey: "AIzaSyAgG4H6wjiZkck0Uz3wyDyu8SwFAYyCneQ",
@@ -46,7 +46,6 @@ const app = loadFirebaseModule('app')
             measurementId: "G-38B0YKEQJV"
         });
     });
-const auth = app.auth();
-
-const storage = loadFirebaseModule('storage', true); // import & ignore the error
+window.FIREBASE_MODULES['app'].auth();
+loadFirebaseModule('storage', true); // import & ignore the error
 // Firestore 모듈 로드
