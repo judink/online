@@ -10,7 +10,25 @@ window.requestAnimFrame = (function(){
           };
 })();
 
+// main.js (or other scripts)
+import { initializeFirebase } from './firebase_config.js';
 
+let db, collection, getDocs, addDoc, doc, updateDoc, deleteDoc, getDoc, Timestamp;
+
+initializeFirebase().then(({ db: _db, collection: _collection, getDocs: _getDocs, addDoc: _addDoc, doc: _doc, updateDoc: _updateDoc, deleteDoc: _deleteDoc, getDoc: _getDoc, Timestamp: _Timestamp }) => {
+    // Firebase is initialized, you can now use the functions
+    db = _db;
+    collection = _collection;
+    getDocs = _getDocs;
+    addDoc = _addDoc;
+    doc = _doc;
+    updateDoc = _updateDoc;
+    deleteDoc = _deleteDoc;
+    getDoc = _getDoc;
+    Timestamp = _Timestamp;
+
+    // Proceed with your logic now
+});
 
 
 
